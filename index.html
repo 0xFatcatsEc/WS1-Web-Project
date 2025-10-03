@@ -13,20 +13,54 @@
             <div class="right">STYLUS</div>
             <div class="center">
                 <ul>
-                    <li><a href="">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li class="dropdown"><a href="">Categories</a>
+                    <li class="nav-hide"><a href="">Home</a></li>
+                    <li class="nav-hide"><a href="#about">About</a></li>
+                    <li class="dropdown nav-hide"><a href="">Categories</a>
                     <ul class="dropdown-content">
                         <li class="dropdown-link"><a href="">Street wear</a></li>
                         <li class="dropdown-link"><a href="">Casual</a></li>
                     </ul>
                     </li>
-                    <li><a href="#visuals">Visuals</a></li>
+                    <li class="nav-hide"><a href="#visuals">Visuals</a></li>
                 </ul>
             </div>
             <div class="last-login-menu">
                 <button class="signup">Sign Up <span class="signup-icon"><i class="fa-solid fa-user-plus"></i></span></button>
                 <button class="login">Log In<span class="login-icon"><i class="fa-solid fa-arrow-right-to-bracket"></i></span></button>
+                <div class="menu-icon" id="menuToggle">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-menu-header">
+                <div class="mobile-menu-logo">STYLUS</div>
+                <div class="close-menu" id="closeMenu">
+                    <i class="fa-solid fa-times"></i>
+                </div>
+            </div>
+            <div class="mobile-menu-content">
+                <ul class="mobile-nav-links">
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li class="mobile-dropdown">
+                        <a href="#" class="mobile-dropdown-toggle">
+                            Categories 
+                            <i class="fa-solid fa-chevron-down dropdown-arrow"></i>
+                        </a>
+                        <ul class="mobile-dropdown-content">
+                            <li><a href="">Street wear</a></li>
+                            <li><a href="">Casual</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#visuals">Visuals</a></li>
+                </ul>
+                <div class="mobile-menu-buttons">
+                    <button class="mobile-signup">Sign Up <i class="fa-solid fa-user-plus"></i></button>
+                    <button class="mobile-login">Log In <i class="fa-solid fa-arrow-right-to-bracket"></i></button>
+                </div>
             </div>
         </div>
     </nav>
@@ -72,11 +106,11 @@
             </div>
             <div class="image-container">
                 <div class="image-content">
-                    <div class="item1"><img src="images/image7.png" alt=""></div>
-                    <div class="item2"><img src="images/image8.png" alt=""></div>
-                    <div class="item3"><img src="images/image9.png" alt=""></div>
-                    <div class="item4"><img src="images/image10.png" alt=""></div>
-                    <div class="item5"><img src="images/image11.png" alt=""></div>
+                    <div class="item1" class="about-image-item"><img src="images/image7.png" alt=""></div>
+                    <div class="item2" class="about-image-item"><img src="images/image8.png" alt=""></div>
+                    <div class="item3" class="about-image-item"><img src="images/image9.png" alt=""></div>
+                    <div class="item4" class="about-image-item"><img src="images/image10.png" alt=""></div>
+                    <div class="item5" class="about-image-item"><img src="images/image11.png" alt=""></div>
                 </div>
             </div>
             <div class="about-content">
@@ -197,25 +231,25 @@
             </div>
             <div class="services-flex-item">
                 <div class="services-item-content">
-                    <div class="services-item item-1">
+                    <div class="services-item item-1 services-grid">
                         <h4 class="header-1"><span><i class="fas fa-lightbulb"></i></span>Creative Direction</h4>
                         <p>We shape stories through layout, typography, and tone. <br>
                         From concept to execution, we guide brands toward clarity and resonance.
                         </p>
                     </div>
-                    <div class="services-item item-2">
+                    <div class="services-item item-2 services-grid">
                         <h4 class="header-2"><span><i class="fas fa-palette"></i></span>Design Curation</h4>
                         <p>Palettes, textures, and poetic content — curated to match your brand’s soul. <br>
                         We refine until it feels exact, not just close.
                     </p>
                     </div>
-                    <div class="services-item item-3">
+                    <div class="services-item item-3 services-grid">
                         <h4 class="header-3"><span><i class="fas fa-handshake"></i></span>Collaboration</h4>
                         <p>We don’t work for teams — we work with them.
                         Every project is a dialogue,<br> every output a shared vision.
                     </p>
                     </div>
-                    <div class="services-item item-4">
+                    <div class="services-item item-4 services-grid">
                         <h4 class="header-4"><span><i class="fas fa-fingerprint"></i></span>Brand Identity</h4>
                         <p>From name to narrative, we help brands find their voice. <br>
                         Visuals that feel lived-in, not just designed.
@@ -263,7 +297,8 @@
 
     <!-- FOOTER SECTION -->
     <footer>
-        <div class="footer-container">
+        <div class="footer-all-container">
+            <div class="footer-container">
             <div class="footer-left">
                 <div class="brand-moto-header-text">
                     <h1>STYLUS</h1>
@@ -299,6 +334,7 @@
                     </ul>
                 </div>
             </div>
+        </div>
         </div>
 
         <hr class="hr-footer">

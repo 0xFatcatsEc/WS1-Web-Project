@@ -13,7 +13,6 @@ function initScrollAnimations() {
         rootMargin: '0px 0px -50px 0px'
     });
 
-    // JavaScript animation functions
     function animateElement(element) {
         const elementType = getElementType(element);
         const delay = parseInt(element.getAttribute('data-delay')) || 0;
@@ -68,7 +67,6 @@ function initScrollAnimations() {
         return 'default';
     }
 
-    // Animation functions using Web Animations API
     function slideInFromLeft(element, delay = 0) {
         element.animate([
             {
@@ -181,12 +179,10 @@ function initScrollAnimations() {
         });
     }
 
-    // Set initial hidden states
     function setInitialState(element) {
         element.style.opacity = '0';
     }
 
-    // Get all elements to animate
     const animateElements = document.querySelectorAll(
         '.hero-header, .hero-content, .img-content, ' +
         '.about-header-text, .image-content, .about-content, ' +
@@ -206,17 +202,14 @@ function initScrollAnimations() {
         }
     }
 
-    // Observe main elements
     animateElements.forEach((el) => {
         safeObserve(el);
     });
 
-    // Observe footer elements
     footerElements.forEach((el) => {
         safeObserve(el);
     });
 
-    // Observe individual images with staggered animations
     const gridImages = document.querySelectorAll('.grid-image, [class*="women-img"], [class*="grid-img"]');
     gridImages.forEach((img, index) => {
         if (!observedElements.has(img)) {
@@ -247,9 +240,9 @@ function initScrollAnimations() {
         }
     });
 
-    // Enhanced hover animations for images
-    const allImages = document.querySelectorAll('img');
-    allImages.forEach(img => {
+    // Only apply JavaScript hover animations to non-visual images (like hero, about, services)
+    const nonVisualImages = document.querySelectorAll('.img-item1 img, .img-item2 img, .img-item3 img, .item1 img, .item2 img, .item3 img, .item4 img, .item5 img, .services-item-img img');
+    nonVisualImages.forEach(img => {
         img.addEventListener('mouseenter', () => {
             img.animate([
                 {
@@ -285,7 +278,8 @@ function initScrollAnimations() {
         });
     });
 
-    // Parallax effect for behind text
+    // Visual section images (grid-img and women-img) will use CSS transitions only
+
     const behindText = document.querySelector('.behid-text');
     if (behindText) {
         window.addEventListener('scroll', () => {
@@ -295,7 +289,6 @@ function initScrollAnimations() {
         });
     }
 
-    // Navbar scroll effect with JavaScript animation
     const nav = document.querySelector('nav');
     if (nav) {
         window.addEventListener('scroll', () => {
@@ -350,10 +343,131 @@ function initPageLoadAnimation() {
     });
 }
 
+// Mobile Navigation Functionality
+function initMobileNavigation() {
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const closeMenu = document.getElementById('closeMenu');
+    const body = document.body;
+    
+    // Mobile dropdown functionality
+    const mobileDropdowns = document.querySelectorAll('.mobile-dropdown');
+    
+    // Open mobile menu
+    function openMobileMenu() {
+        mobileMenu.classList.add('active');
+        body.classList.add('menu-open');
+        
+        // Change hamburger to X
+        menuToggle.innerHTML = '<i class="fa-solid fa-times"></i>';
+    }
+    
+    // Close mobile menu
+    function closeMobileMenu() {
+        mobileMenu.classList.remove('active');
+        body.classList.remove('menu-open');
+        
+        // Change X back to hamburger
+        menuToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+        
+        // Close any open dropdowns
+        mobileDropdowns.forEach(dropdown => {
+            dropdown.classList.remove('active');
+            const content = dropdown.querySelector('.mobile-dropdown-content');
+            if (content) content.classList.remove('active');
+        });
+    }
+    
+    // Toggle mobile menu
+    function toggleMobileMenu() {
+        if (mobileMenu.classList.contains('active')) {
+            closeMobileMenu();
+        } else {
+            openMobileMenu();
+        }
+    }
+    
+    // Event listeners
+    if (menuToggle) menuToggle.addEventListener('click', toggleMobileMenu);
+    if (closeMenu) closeMenu.addEventListener('click', closeMobileMenu);
+    
+    // Close menu when clicking on menu links
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-links a:not(.mobile-dropdown-toggle)');
+    mobileNavLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            closeMobileMenu();
+        });
+    });
+    
+    // Handle mobile dropdown toggles
+    mobileDropdowns.forEach(dropdown => {
+        const toggle = dropdown.querySelector('.mobile-dropdown-toggle');
+        const content = dropdown.querySelector('.mobile-dropdown-content');
+        
+        if (toggle && content) {
+            toggle.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Close other dropdowns
+                mobileDropdowns.forEach(otherDropdown => {
+                    if (otherDropdown !== dropdown) {
+                        otherDropdown.classList.remove('active');
+                        const otherContent = otherDropdown.querySelector('.mobile-dropdown-content');
+                        if (otherContent) otherContent.classList.remove('active');
+                    }
+                });
+                
+                // Toggle current dropdown
+                dropdown.classList.toggle('active');
+                content.classList.toggle('active');
+            });
+        }
+    });
+    
+    // Close menu when clicking outside
+    if (mobileMenu) {
+        mobileMenu.addEventListener('click', (e) => {
+            if (e.target === mobileMenu) {
+                closeMobileMenu();
+            }
+        });
+    }
+    
+    // Handle window resize
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 640 && mobileMenu && mobileMenu.classList.contains('active')) {
+            closeMobileMenu();
+        }
+    });
+    
+    // Prevent scrolling issues on mobile
+    let touchStartY = 0;
+    if (mobileMenu) {
+        mobileMenu.addEventListener('touchstart', (e) => {
+            touchStartY = e.touches[0].clientY;
+        }, { passive: true });
+        
+        mobileMenu.addEventListener('touchmove', (e) => {
+            const touchY = e.touches[0].clientY;
+            const touchDiff = touchStartY - touchY;
+            const menuContent = document.querySelector('.mobile-menu-content');
+            
+            if (menuContent && menuContent.scrollTop === 0 && touchDiff < 0) {
+                e.preventDefault();
+            }
+            
+            if (menuContent && menuContent.scrollHeight - menuContent.scrollTop === menuContent.clientHeight && touchDiff > 0) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     initPageLoadAnimation();
     setTimeout(() => {
         initScrollAnimations();
         initSmoothScroll();
+        initMobileNavigation();
     }, 100);
 });
